@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  jenkins:
+    image: jenkinsimage-automation:latest
+    restart: on-failure
+    networks:
+      - jenkins-automated
+    volumes:
+      - ./casc_configs:/var/jenkins_home/casc_configs
+    environment:
+      DOCKER_HOST: tcp://docker:2376
+      DOCKER_CERT_PATH: /certs/client
+      DOCKER_TLS_VERIFY: '1'
+      CASC_JENKINS_CONFIG: /var/jenkins_home/casc_configs/jenkins.yaml
+      SONAR_PASSWORD: ${SONAR_PASSWORD_SH}
+      PRIVATE_IP: /run/secrets/PRIVATE_IP
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+      - '8081:8081'
+    secrets:
+      - PRIVATE_IP
+
+networks:
+  jenkins-automated:
+    external: true
+
+secrets:
+  PRIVATE_IP:
+    file: pvt_ip_secret.txt

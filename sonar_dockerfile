@@ -1,0 +1,5 @@
+# Use the official SonarQube image as a base
+FROM sonarqube:latest
+
+# Expose the default SonarQube port
+EXPOSE 9000

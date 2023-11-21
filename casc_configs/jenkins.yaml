@@ -1,0 +1,69 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          id: "cecc0859-3bff-4f42-a387-619cb1e6a52c"
+          password: "{AQAAABAAAAAQObtr3zMBAr7OKMyTtX7cbP4UOQgCNVrXkMxxN4V7VdM=}"
+          scope: GLOBAL
+          username: "admin"
+      - usernamePassword:
+          id: "314b20c2-c528-4377-b17a-751bd3887e25"
+          password: "{AQAAABAAAAAQwvySDMDXhsQMqrA12PETNd9cMB7Wg+TAJWa+6Y1Ratk=}"
+          scope: GLOBAL
+      - string:
+          id: "c7f233c6-8c3e-42ce-b815-036bcf1f2d4e"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAw9EM/Lnr/e8kUxHyF9pBNdSkQ8gUciUCto5R6IAG213syE0dj78iaVGXRJLt44aUCt/C9K9K4yTyLrTGeuMrXdQ==}"
+      - string:
+          id: "sonar-secret-token"
+          scope: GLOBAL
+          secret: ${SONAR_PASSWORD}
+
+jenkins:
+  disableRememberMe: false
+  slaveAgentPort: 50000
+
+unclassified:
+
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: true
+    installations:
+    - credentialsId: "sonar-secret-token"
+      name: "sonar-local-container"
+      serverUrl: "http://${PRIVATE_IP}:9000"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+
+jobs:
+  - script: |
+      multibranchPipelineJob('Spring-dummy-project') {
+          branchSources {
+              git {
+                  id = 'asst1-automation'
+                  remote('https://github.com/nimishjindal/asst1-automation.git')
+              }
+          }
+      }
+
+tool:
+  maven:
+    installations:
+    - name: "M3"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.9.5"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+  sonarRunnerInstallation:
+    installations:
+    - name: "sonar-asst"
+      properties:
+      - installSource:
+          installers:
+          - sonarRunnerInstaller:
+              id: "5.0.1.3006"
