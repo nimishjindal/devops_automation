@@ -42,7 +42,7 @@ jobs:
           branchSources {
               git {
                   id = 'asst1-automation'
-                  remote('https://github.com/nimishjindal/asst1-automation.git')
+                  remote('https://github.com/nimishjindal/devops_automation.git')
               }
           }
       }
