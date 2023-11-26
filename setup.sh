@@ -10,8 +10,9 @@ docker network create jenkins-automated
 #----- setup Jenkins ---------
 ./setup_Jenkins.sh
 
-#---- check if job is complete -----
-#echo "------------ Application URL will appear once job is complete -----------"
-#./Jenkins_job_status.sh
-
+# ---- setup petclinic ------
 sudo docker-compose -f docker-compose-petclinic.yml up -d
+
+#---- check if job is complete -----
+echo "------------ Application URL will appear once job is complete -----------"
+./Jenkins_job_status.sh

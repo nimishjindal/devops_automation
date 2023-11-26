@@ -14,4 +14,4 @@ while [ "$color" != "blue" ]; do
   sleep 20
 done
 
-echo "The job completed successfully. Go to http://localhost:8081"
+echo "The job completed successfully. Go to http://localhost:8082"
