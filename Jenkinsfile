@@ -37,6 +37,14 @@ pipeline {
             }
         }
 
+        stage('ssh setup') {
+            steps {
+                script {
+                    sh './ssh_tasks.sh'
+                }
+            }
+        }
+
         stage('Deployment') {
             steps {
                 ansiblePlaybook (
