@@ -33,7 +33,6 @@ pipeline {
                 script {
                     sh './mvnw package -DskipTests -Dcheckstyle.skip=true'
                     sh 'mkdir -p $WORKSPACE/jars && cp target/*.jar $WORKSPACE/jars/petclinic.jar'
-
                 }
             }
         }

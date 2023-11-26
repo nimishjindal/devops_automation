@@ -1,12 +1,15 @@
 version: '3.8'
 services:
   jenkins:
+    container_name: jenkins
     image: jenkinsimage-automation:latest
     restart: on-failure
     networks:
       - jenkins-automated
     volumes:
       - ./casc_configs:/var/jenkins_home/casc_configs
+      - ./ansible/inventory.ini:/usr/share/jenkins/ref/inventory.ini
+      - ./ansible/playbook.yml:/usr/share/jenkins/ref/playbook.yml
     environment:
       DOCKER_HOST: tcp://docker:2376
       DOCKER_CERT_PATH: /certs/client

@@ -1,0 +1,27 @@
+FROM ubuntu:latest
+
+# Install Java 17
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:openjdk-r/ppa && \
+    apt-get update && \
+    apt-get install -y openjdk-17-jdk && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set the JAVA_HOME environment variable
+ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
+
+# Set the path to include Java 17
+ENV PATH $JAVA_HOME/bin:$PATH
+
+RUN useradd -m username && echo "username:password" | chpasswd
+
+EXPOSE 22
+
+RUN apt-get update && apt-get install -y openssh-server
+RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
+COPY petclinic_startup.sh /petclinic_startup.sh
+RUN chmod +x /petclinic_startup.sh
+CMD ["/petclinic_startup.sh"]

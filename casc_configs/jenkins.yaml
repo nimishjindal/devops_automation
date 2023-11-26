@@ -38,7 +38,7 @@ unclassified:
 
 jobs:
   - script: |
-      multibranchPipelineJob('Spring-dummy-project') {
+      multibranchPipelineJob('petclinic') {
           branchSources {
               git {
                   id = 'asst1-automation'
