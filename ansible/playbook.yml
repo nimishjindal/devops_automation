@@ -4,7 +4,7 @@
   tasks:
     - name: Copy jar file to target
       copy:
-        src: /var/jenkins_home/workspace/petclinic_assignment_2/jars/petclinic.jar
+        src: /var/jenkins_home/workspace/petclinic_ansible-automation/jars/petclinic.jar
         dest: /home/username/petclinic.jar
 
     - name: Run the jar file
