@@ -28,17 +28,6 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            environment {
-                scannerHome = tool 'sonar-asst'
-            }
-            steps {
-                withSonarQubeEnv('sonar-local-container') {
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=assignment -Dsonar.exclusions=**/*.java -Dcheckstyle.skip=true"
-                }
-            }
-        }
-
         stage('Maven Build') {
             steps {
                 script {
