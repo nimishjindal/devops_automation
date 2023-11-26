@@ -41,7 +41,7 @@ pipeline {
         stage('Deployment') {
             steps {
                 ansiblePlaybook (
-                    inventory: '/usr/share/jenkins/ref/inventory',
+                    inventory: '/usr/share/jenkins/ref/inventory.ini',
                     playbook: '/usr/share/jenkins/ref/playbook.yml',
                     extras: '-vvv'
                 )
