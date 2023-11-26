@@ -39,18 +39,23 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Maven Build') {
             steps {
                 script {
                     sh 'mvn install -Dcheckstyle.skip=true -DskipTests=true'
                 }
             }
         }
-    }
 
-    post {
-        success {
-            sh 'JENKINS_NODE_COOKIE=dontkill nohup java -jar target/spring-petclinic-3.1.0-SNAPSHOT.jar --server.port=8081 &'
+        stage('Deployment') {
+            steps {
+                ansiblePlaybook (
+                    inventory: '/usr/share/jenkins/ref/inventory',
+                    playbook: '/usr/share/jenkins/ref/playbook.yml',
+                    extras: '-vvv'
+                )
+            }
         }
+
     }
 }
