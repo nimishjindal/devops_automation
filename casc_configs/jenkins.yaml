@@ -26,8 +26,9 @@ jobs:
       multibranchPipelineJob('petclinic') {
           branchSources {
               git {
-                  id = 'asst1-automation'
+                  id = 'asst2-automation'
                   remote('https://github.com/nimishjindal/devops_automation.git')
+                  includes('ansible-automation')
               }
           }
       }
