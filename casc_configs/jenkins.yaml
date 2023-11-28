@@ -15,26 +15,11 @@ credentials:
           id: "c7f233c6-8c3e-42ce-b815-036bcf1f2d4e"
           scope: GLOBAL
           secret: "{AQAAABAAAAAw9EM/Lnr/e8kUxHyF9pBNdSkQ8gUciUCto5R6IAG213syE0dj78iaVGXRJLt44aUCt/C9K9K4yTyLrTGeuMrXdQ==}"
-      - string:
-          id: "sonar-secret-token"
-          scope: GLOBAL
-          secret: ${SONAR_PASSWORD}
+
 
 jenkins:
   disableRememberMe: false
   slaveAgentPort: 50000
-
-unclassified:
-
-  sonarGlobalConfiguration:
-    buildWrapperEnabled: true
-    installations:
-    - credentialsId: "sonar-secret-token"
-      name: "sonar-local-container"
-      serverUrl: "http://${PRIVATE_IP}:9000"
-      triggers:
-        skipScmCause: false
-        skipUpstreamCause: false
 
 jobs:
   - script: |
@@ -59,11 +44,3 @@ tool:
   mavenGlobalConfig:
     globalSettingsProvider: "standard"
     settingsProvider: "standard"
-  sonarRunnerInstallation:
-    installations:
-    - name: "sonar-asst"
-      properties:
-      - installSource:
-          installers:
-          - sonarRunnerInstaller:
-              id: "5.0.1.3006"

@@ -23,7 +23,7 @@ pipeline {
         stage('Maven Build') {
             steps {
                 script {
-                    sh 'mvn verify package -DskipTests -Dcheckstyle.skip=true'
+                    sh 'mvn package -DskipTests -Dcheckstyle.skip=true'
                     sh 'mkdir -p $WORKSPACE/jars && cp target/*.jar $WORKSPACE/jars/petclinic.jar'
                 }
             }
