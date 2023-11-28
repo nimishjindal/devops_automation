@@ -12,18 +12,10 @@ pipeline {
             }
         }
 
-        stage('maven clean verify') {
+        stage('maven clean') {
             steps {
                 script {
-                    sh 'mvn clean -Dcheckstyle.skip=true'
-                }
-            }
-        }
-
-        stage('maven verify') {
-            steps {
-                script {
-                    sh 'mvn verify -Dcheckstyle.skip=true -DskipTests=true'
+                    sh 'mvn clean verify -Dcheckstyle.skip=true'
                 }
             }
         }
@@ -31,7 +23,7 @@ pipeline {
         stage('Maven Build') {
             steps {
                 script {
-                    sh './mvnw package -DskipTests -Dcheckstyle.skip=true'
+                    sh 'mvn verify package -DskipTests -Dcheckstyle.skip=true'
                     sh 'mkdir -p $WORKSPACE/jars && cp target/*.jar $WORKSPACE/jars/petclinic.jar'
                 }
             }
@@ -42,7 +34,6 @@ pipeline {
                 ansiblePlaybook (
                     inventory: '/usr/share/jenkins/ref/inventory.ini',
                     playbook: '/usr/share/jenkins/ref/playbook.yml',
-                    extras: '-vvv'
                 )
             }
         }

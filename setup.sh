@@ -4,9 +4,6 @@
 ./install_jq.sh
 docker network create jenkins-automated
 
-#------- setup SonarQube------------
-#./setup_Sonar.sh
-
 #----- setup Jenkins ---------
 ./setup_Jenkins.sh
 
