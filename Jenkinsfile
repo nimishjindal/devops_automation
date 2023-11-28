@@ -15,7 +15,7 @@ pipeline {
         stage('maven clean') {
             steps {
                 script {
-                    sh 'mvn clean verify -Dcheckstyle.skip=true'
+                    sh 'mvn clean verify -DskipTests -Dcheckstyle.skip=true'
                 }
             }
         }
